@@ -17,7 +17,7 @@ gem 'puma', '~> 5.0'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -28,13 +28,41 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Add support to load environment variables from `.env` files.
+  gem "dotenv-rails", "~> 2.7"
 end
 
 group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  # Add Code Linter and Formatter Rubocop which works according to Ruby Style Guide and configured by rubocop.yml
+gem "rubocop", "~> 1.29"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+# Add support for Pagination
+gem "pagy", "~> 5.10"
+
+# Add support for using ActiveJob with SideKiq as queing backend
+gem "sidekiq", "~> 6.4"
+gem "sidekiq-failures", "~> 1.0"
+
+# Add support for authorization and authentication using OAuth2 standard protocol
+gem "doorkeeper", "~> 5.5"
+gem "doorkeeper-grants_assertion", "~> 0.3.1"
+
+# Add support for trailblazer high-level domain architecture style
+gem "trailblazer-rails", "~> 2.4"
+
+# Representable Dependency for JSON documents
+gem "multi_json", "~> 1.15"
+
+# Representable maps objects to documents (rendering) and documents to objects (parsing) using representers.
+gem "representable", "~> 3.1"
+
+# Add support for Google Cloud Storage
+gem "google-cloud-storage", "~> 1.36", require: false
