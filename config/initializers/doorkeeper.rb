@@ -5,6 +5,9 @@ Doorkeeper.configure do
   # Check the list of supported ORMs here: https://github.com/doorkeeper-gem/doorkeeper#orms
   orm :active_record
 
+  base_controller 'ApplicationController'
+  base_metal_controller 'ApplicationController'
+
   # enable grant flows
   grant_flows %w[assertion]
 

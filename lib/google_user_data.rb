@@ -7,6 +7,8 @@ class GoogleUserData
       headers: { 'Content-Type' => 'application/json' }
     )
     response = conn.get('', { access_token: access_token })
+    raise StandardError, JSON.parse(response.body)['error']['message'] unless response.success?
+
     JSON.parse(response.body)
   end
 end
