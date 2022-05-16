@@ -41,5 +41,8 @@ module Pokedex
     # Creates a database schema file (db/structure.sql)
     # Loads a database schema file (db/structure.sql) into the database
     config.active_record.schema_format = :sql
+
+    # Add lib directory to load_paths
+    config.autoload_paths << Rails.root.join("lib")
   end
 end

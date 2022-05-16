@@ -1,8 +1,6 @@
 class Pokemon < ApplicationRecord
-  has_many :pokemon_regions
-  has_many :regions, through: :pokemon_regions
-  has_many :pokemon_types
-  has_many :types, through: :pokemon_types
+  belongs_to :region
+  has_and_belongs_to_many :types
   has_many :pokemon_moves
   has_many :moves, through: :pokemon_moves
 end
