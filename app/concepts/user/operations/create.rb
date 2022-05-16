@@ -31,7 +31,7 @@ class User
       end
 
       def render_json(ctx, user:, **)
-        ctx[:json] = User::Representer::User.jsonapi_new(user).to_json
+        ctx[:json] = User::Representers::User.jsonapi_new(user).to_json
       end
     end
   end

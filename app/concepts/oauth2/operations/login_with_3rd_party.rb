@@ -9,6 +9,8 @@ module Oauth2
         case provider
         when 'google'
           Oauth2::Operations::LoginWithGoogle.call(**ctx)
+        when 'facebook'
+          Oauth2::Operations::LoginWithFacebook.call(**ctx)
         else
           raise ArgumentError, 'Invalid Third Party Authentication Provider'
         end
