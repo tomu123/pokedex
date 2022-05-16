@@ -2,8 +2,11 @@
 
 class GoogleUserData
   def self.call(access_token)
-    google = URI.parse("#{ENV['GOOGLE_USER_DATA_ENDPOINT']}#{access_token}")
-    response = Net::HTTP.get_response(google)
+    conn = Faraday.new(
+      url: ENV.fetch('GOOGLE_USER_DATA_ENDPOINT'),
+      headers: { 'Content-Type' => 'application/json' }
+    )
+    response = conn.get('', { access_token: access_token })
     JSON.parse(response.body)
   end
 end

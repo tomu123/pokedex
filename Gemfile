@@ -65,3 +65,7 @@ gem "representable", "~> 3.1"
 
 # Add support for Google Cloud Storage
 gem "google-cloud-storage", "~> 1.36", require: false
+
+# Faraday is an HTTP client library that provides a common interface over many adapters (such as Net::HTTP)
+# and embraces the concept of Rack middleware when processing the request/response cycle.
+gem "faraday", "~> 2.3"

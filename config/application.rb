@@ -44,5 +44,7 @@ module Pokedex
 
     # Add lib directory to load_paths
     config.autoload_paths << Rails.root.join("lib")
+
+    Faraday.default_adapter = :net_http
   end
 end
