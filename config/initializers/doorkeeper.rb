@@ -20,6 +20,7 @@ Doorkeeper.configure do
   use_refresh_token
 
   resource_owner_from_assertion do
-    Oauth2::Operations::LoginWith3rdParty.call(provider: params[:provider], access_token: params[:access_token])
+    result = Oauth2::Operations::LoginWith3rdParty.call(provider: params[:provider], access_token: params[:access_token])
+    result[:user]
   end
 end

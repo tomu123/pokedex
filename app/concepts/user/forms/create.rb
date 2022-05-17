@@ -8,7 +8,8 @@ class User
       attr_accessor :email, :given_name, :family_name, :user_role
 
       validates :email, :given_name, :family_name, presence: true
-      validate :user_role_valid?, :unique_email?
+      validate :user_role_valid?
+      validate :unique_email?, unless: -> { email.blank? }
 
       private
 

@@ -18,7 +18,7 @@ class User
         user_form.valid?
       end
 
-      def invalid_user_form(_ctx, user_form, **)
+      def invalid_user_form(_ctx, user_form:, **)
         raise CustomError.new(error: :argument_error, status: :unprocessable_entity, message: user_form.errors.to_hash)
       end
 

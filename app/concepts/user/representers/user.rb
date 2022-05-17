@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class User
-  module Representer
-    class User < Application::Representer::ApplicationRepresenter
+  module Representers
+    class User < Application::Representers::ApplicationRepresenter
       property :id
       property :email
       property :given_name

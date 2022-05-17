@@ -10,6 +10,16 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: authentication_provider; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.authentication_provider AS ENUM (
+    'google',
+    'facebook'
+);
+
+
+--
 -- Name: user_role; Type: TYPE; Schema: public; Owner: -
 --
 
@@ -399,6 +409,39 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: third_party_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.third_party_users (
+    id bigint NOT NULL,
+    provider_id character varying NOT NULL,
+    user_id bigint NOT NULL,
+    provider public.authentication_provider NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: third_party_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.third_party_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: third_party_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.third_party_users_id_seq OWNED BY public.third_party_users.id;
+
+
+--
 -- Name: types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -435,7 +478,7 @@ ALTER SEQUENCE public.types_id_seq OWNED BY public.types.id;
 
 CREATE TABLE public.users (
     id bigint NOT NULL,
-    email character varying NOT NULL,
+    email character varying,
     given_name character varying NOT NULL,
     family_name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -531,6 +574,13 @@ ALTER TABLE ONLY public.pokemons ALTER COLUMN id SET DEFAULT nextval('public.pok
 --
 
 ALTER TABLE ONLY public.regions ALTER COLUMN id SET DEFAULT nextval('public.regions_id_seq'::regclass);
+
+
+--
+-- Name: third_party_users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.third_party_users ALTER COLUMN id SET DEFAULT nextval('public.third_party_users_id_seq'::regclass);
 
 
 --
@@ -641,6 +691,14 @@ ALTER TABLE ONLY public.regions
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: third_party_users third_party_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.third_party_users
+    ADD CONSTRAINT third_party_users_pkey PRIMARY KEY (id);
 
 
 --
@@ -772,6 +830,27 @@ CREATE INDEX index_pokemons_types_on_type_id ON public.pokemons_types USING btre
 
 
 --
+-- Name: index_third_party_users_on_provider_and_provider_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_third_party_users_on_provider_and_provider_id ON public.third_party_users USING btree (provider, provider_id);
+
+
+--
+-- Name: index_third_party_users_on_provider_id_and_provider; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_third_party_users_on_provider_id_and_provider ON public.third_party_users USING btree (provider_id, provider);
+
+
+--
+-- Name: index_third_party_users_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_third_party_users_on_user_id ON public.third_party_users USING btree (user_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -842,6 +921,14 @@ ALTER TABLE ONLY public.pokemon_moves
 
 
 --
+-- Name: third_party_users fk_rails_e90998d3f9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.third_party_users
+    ADD CONSTRAINT fk_rails_e90998d3f9 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: oauth_access_tokens fk_rails_ee63f25419; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -875,6 +962,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220513132201'),
 ('20220513134731'),
 ('20220514090644'),
-('20220514091505');
+('20220514091505'),
+('20220517002251');
 
 

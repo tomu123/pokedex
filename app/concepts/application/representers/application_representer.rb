@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Application
-  module Representer
+  module Representers
     class ApplicationRepresenter < Representable::Decorator
       include Representable::JSON
 
