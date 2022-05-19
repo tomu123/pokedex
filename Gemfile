@@ -30,6 +30,9 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   # Add support to load environment variables from `.env` files.
   gem "dotenv-rails", "~> 2.7"
+  # Add Rspec as testing framework instead of Minitest
+  gem "rspec", "~> 3.11"
+  gem "rspec-rails", "~> 5.1"
 end
 
 group :development do
@@ -38,6 +41,11 @@ group :development do
   gem 'spring'
   # Add Code Linter and Formatter Rubocop which works according to Ruby Style Guide and configured by rubocop.yml
   gem "rubocop", "~> 1.29"
+end
+
+group :test do
+  # Library for stubbing and setting expectations on HTTP requests in Ruby.
+  gem "webmock", "~> 3.14"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
