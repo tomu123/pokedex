@@ -851,6 +851,13 @@ CREATE INDEX index_third_party_users_on_user_id ON public.third_party_users USIN
 
 
 --
+-- Name: index_types_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_types_on_name ON public.types USING btree (name);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
