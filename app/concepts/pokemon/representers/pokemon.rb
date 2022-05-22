@@ -7,6 +7,7 @@ class Pokemon
       property :name
       property :height
       property :weight
+      property :description
       property :hp
       property :attack
       property :defense

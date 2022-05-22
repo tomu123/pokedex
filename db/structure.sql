@@ -151,6 +151,13 @@ CREATE TABLE public.ar_internal_metadata (
 
 CREATE TABLE public.captured_pokemons (
     id bigint NOT NULL,
+    name character varying NOT NULL,
+    hp integer NOT NULL,
+    attack integer NOT NULL,
+    defense integer NOT NULL,
+    special_attack integer NOT NULL,
+    special_defense integer NOT NULL,
+    speed integer NOT NULL,
     pokemon_id bigint NOT NULL,
     user_id bigint NOT NULL,
     deleted_at date,

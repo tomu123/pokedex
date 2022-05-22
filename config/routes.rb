@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      namespace :trainer do
+        resources :pokemons, only: [:index,:show] do
+          post 'capture', on: :member
+        end
+      end
+    end
+  end
+  namespace :api do
+    namespace :v1 do
       namespace :doctor do
         resources :pokemons
       end
