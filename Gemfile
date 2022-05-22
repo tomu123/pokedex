@@ -64,6 +64,7 @@ gem "doorkeeper-grants_assertion", "~> 0.3.1"
 
 # Add support for trailblazer high-level domain architecture style
 gem "trailblazer-rails", "~> 2.4"
+gem "reform-rails", "~> 0.2.3"
 
 # Representable Dependency for JSON documents
 gem "multi_json", "~> 1.15"
@@ -77,3 +78,6 @@ gem "google-cloud-storage", "~> 1.36", require: false
 # Faraday is an HTTP client library that provides a common interface over many adapters (such as Net::HTTP)
 # and embraces the concept of Rack middleware when processing the request/response cycle.
 gem "faraday", "~> 2.3"
+
+# Add searching(filtering and sorting) capabilities using Ransanck gem
+gem "ransack", "~> 3.2"
