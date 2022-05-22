@@ -6,61 +6,18 @@ RSpec.describe "Third Party Authentication", type: :request do
 
   describe "POST /oauth/token" do
     before do
-      stub_request(:get, ENV.fetch('FACEBOOK_USER_DATA_ENDPOINT')).with(
-        query: {
-          fields: "id,first_name,last_name,email",
-          access_token: "access_token_ok"
-        }
-      ).to_return(body: {
-        id: "5321085381282292",
-        first_name: "Tomu",
-        last_name: "Komatsu Dueñas",
-        email: "tomu5642514@hotmail.com"
-      }.to_json, status: 200)
-
-      stub_request(:get, ENV.fetch('GOOGLE_USER_DATA_ENDPOINT')).with(
-        query: {
-          access_token: "access_token_ok"
-        }
-      ).to_return(body: {
-        name: {
-          givenName: "Tomu",
-          familyName: "K."
-        },
-        image: {
-          url: "https://lh3.googleusercontent.com/a-/AOh14Gjstqc5xnl-2Dv5g0LUPRSnazn1M7TlPIWvyA_w4rA=s50"
-        },
-        emails: [
-          {
-            type: "ACCOUNT",
-            value: "tomu5642514@gmail.com"
-          }
-        ],
-        id: "100052910347088839756"
-      }.to_json, status: 200)
-
-      stub_request(:get, ENV.fetch('FACEBOOK_USER_DATA_ENDPOINT')).with(
-        query: {
-          fields: "id,first_name,last_name,email",
-          access_token: "access_token_fail"
-        }
-      ).to_return(body: {
-        error: {
-          title: 'Invalid Access Token',
-          message: 'Invalid Access Token'
-        }
-      }.to_json, status: 400)
-
-      stub_request(:get, ENV.fetch('GOOGLE_USER_DATA_ENDPOINT')).with(
-        query: {
-          access_token: "access_token_fail"
-        }
-      ).to_return(body: {
-        error: {
-          title: 'Invalid Access Token',
-          message: 'Invalid Access Token'
-        }
-      }.to_json, status: 403)
+      create_stub(url: ENV.fetch('FACEBOOK_USER_DATA_ENDPOINT'),
+                  query: { fields: "id,first_name,last_name,email", access_token: "access_token_ok" },
+                  json_response: File.read(Rails.root.join("spec/webmock/facebook_success_response.json")), status: 200)
+      create_stub(url: ENV.fetch('FACEBOOK_USER_DATA_ENDPOINT'),
+                  query: { fields: "id,first_name,last_name,email", access_token: "access_token_fail" },
+                  json_response: File.read(Rails.root.join("spec/webmock/facebook_failure_response.json")), status: 400)
+      create_stub(url: ENV.fetch('GOOGLE_USER_DATA_ENDPOINT'),
+                  query: { access_token: "access_token_ok" },
+                  json_response: File.read(Rails.root.join("spec/webmock/google_success_response.json")), status: 200)
+      create_stub(url: ENV.fetch('GOOGLE_USER_DATA_ENDPOINT'),
+                  query: { access_token: "access_token_fail" },
+                  json_response: File.read(Rails.root.join("spec/webmock/google_failure_response.json")), status: 403)
     end
 
     it "register a user when this is the first time they login with a third party app, create a token for the user and return it" do

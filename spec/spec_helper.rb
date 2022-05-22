@@ -91,3 +91,6 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
 end
+def create_stub(url:, status:, json_response:, method: :get, query: {})
+  stub_request(method, url).with(query: query).to_return(body: json_response, status: status)
+end

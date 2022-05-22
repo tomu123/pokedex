@@ -57,4 +57,7 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # Default URL options in order to use url helpers outside controllers and views
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 end
