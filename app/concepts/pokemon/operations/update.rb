@@ -16,7 +16,7 @@ class Pokemon
       end
 
       def create_pokemon_form(ctx, pokemon:, **)
-        ctx[:pokemon_form] = Pokemon::Forms::Pokemon.new(pokemon)
+        ctx[:pokemon_form] = Pokemon::Forms::PokemonForm.new(pokemon)
       end
 
       def validate_form(_ctx, pokemon_form:, pokemon_data:, **)

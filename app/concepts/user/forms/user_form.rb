@@ -2,7 +2,7 @@
 
 class User
   module Forms
-    class User
+    class UserForm
       include ActiveModel::Model
 
       attr_accessor :email, :given_name, :family_name, :user_role

@@ -2,7 +2,7 @@
 
 class Pokemon
   module Forms
-    class Pokemon < Reform::Form
+    class PokemonForm < Reform::Form
       property :name
       property :height
       property :weight
@@ -12,12 +12,13 @@ class Pokemon
       property :special_attack
       property :special_defense
       property :speed
+      property :description
       property :type_ids
       property :region_id
       property :move_ids
 
       validates :name, :height, :weight, :hp, :attack, :defense, :special_attack, :special_defense, :speed,
-                :region_id, presence: true
+                :description, :region_id, presence: true
       validates :type_ids, presence: { message: "Pokemon should belong to at least one type" }
       validates :height, :weight, :hp, :attack, :defense, :special_attack, :special_defense, :speed,
                 numericality: { only_integer: true }

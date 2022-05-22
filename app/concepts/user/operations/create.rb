@@ -11,7 +11,7 @@ class User
       step :render_json
 
       def create_user_form(ctx, user_data:, **)
-        ctx[:user_form] = User::Forms::User.new(**user_data)
+        ctx[:user_form] = User::Forms::UserForm.new(**user_data)
       end
 
       def validate_form(_ctx, user_form:, **)
