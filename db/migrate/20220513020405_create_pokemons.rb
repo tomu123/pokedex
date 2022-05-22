@@ -10,7 +10,7 @@ class CreatePokemons < ActiveRecord::Migration[6.1]
       t.integer :special_attack, null: false
       t.integer :special_defense, null: false
       t.integer :speed, null: false
-
+      t.string :description, null: false
       t.timestamps
     end
   end

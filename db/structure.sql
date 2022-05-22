@@ -333,6 +333,7 @@ CREATE TABLE public.pokemons (
     special_attack integer NOT NULL,
     special_defense integer NOT NULL,
     speed integer NOT NULL,
+    description character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     region_id bigint NOT NULL
