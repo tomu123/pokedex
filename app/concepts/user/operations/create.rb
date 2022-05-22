@@ -11,7 +11,7 @@ class User
       step :render_json
 
       def create_user_form(ctx, user_data:, **)
-        ctx[:user_form] = User::Forms::Create.new(**user_data)
+        ctx[:user_form] = User::Forms::User.new(**user_data)
       end
 
       def validate_form(_ctx, user_form:, **)
@@ -27,7 +27,7 @@ class User
       end
 
       def find_user(ctx, user:, **)
-        ctx[:user] = User.includes(pokemons: %i[regions types moves]).find(user.id)
+        ctx[:user] = User.includes(pokemons: %i[region types moves]).find(user.id)
       end
 
       def render_json(ctx, user:, **)
