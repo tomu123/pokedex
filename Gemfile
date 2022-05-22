@@ -33,6 +33,10 @@ group :development, :test do
   # Add Rspec as testing framework instead of Minitest
   gem "rspec", "~> 3.11"
   gem "rspec-rails", "~> 5.1"
+  # Generates real-looking test data
+  gem "faker", "~> 2.21"
+  # Helper for writing factories for Ruby tests
+  gem "factory_bot_rails", "~> 6.2"
 end
 
 group :development do
@@ -81,3 +85,6 @@ gem "faraday", "~> 2.3"
 
 # Add searching(filtering and sorting) capabilities using Ransanck gem
 gem "ransack", "~> 3.2"
+
+# Add support to use SendGrid as Email Provider
+gem "sendgrid-actionmailer", "~> 3.2"
