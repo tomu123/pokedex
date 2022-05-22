@@ -7,7 +7,7 @@ class Pokemon
       pass :render_json
 
       def set_pokemon(ctx, pokemon_id:, **)
-        ctx[:pokemon] = Pokemon.find(pokemon_id)
+        ctx[:pokemon] = Pokemon.includes(:region, :types, :moves).find(pokemon_id)
       end
 
       def render_json(ctx, pokemon:, **)

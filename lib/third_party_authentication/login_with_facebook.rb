@@ -5,7 +5,7 @@ module ThirdPartyAuthentication
     def initialize(access_token)
       super(access_token)
       @api_endpoint = ENV.fetch('FACEBOOK_USER_DATA_ENDPOINT')
-      @params = { fields: 'id,first_name,last_name,email' }
+      @params = { fields: 'id,first_name,last_name,email,picture' }
     end
 
     def transform_user_data
@@ -13,7 +13,8 @@ module ThirdPartyAuthentication
         id: @user_data['id'],
         email: @user_data['email'],
         given_name: @user_data['first_name'],
-        family_name: @user_data['last_name']
+        family_name: @user_data['last_name'],
+        image: @user_data.dig('picture', 'data', 'url')
       }
     end
   end

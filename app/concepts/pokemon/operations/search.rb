@@ -10,7 +10,7 @@ class Pokemon
       pass :render_json
 
       def fetch_pokemons(ctx, **)
-        ctx[:relation] = Pokemon.all
+        ctx[:relation] = Pokemon.includes(:region, :types, :moves).all
       end
 
       def set_representer(ctx, **)

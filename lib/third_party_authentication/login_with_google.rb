@@ -12,7 +12,8 @@ module ThirdPartyAuthentication
         id: @user_data['id'],
         email: @user_data['emails'][0]['value'],
         given_name: @user_data['name']['givenName'],
-        family_name: @user_data['name']['familyName']
+        family_name: @user_data['name']['familyName'],
+        image: @user_data.dig('image', 'url')
       }
     end
   end

@@ -5,6 +5,9 @@ Rails.application.routes.draw do
         resources :pokemons, only: [:index,:show] do
           post 'capture', on: :member
         end
+        resource :user, only: [:show] do
+          patch 'upload_image'
+        end
       end
     end
   end

@@ -2,10 +2,11 @@
 
 class User
   module Forms
-    class UserForm
-      include ActiveModel::Model
-
-      attr_accessor :email, :given_name, :family_name, :user_role
+    class UserForm < Reform::Form
+      property :email
+      property :given_name
+      property :family_name
+      property :user_role
 
       validates :email, :given_name, :family_name, presence: true
       validate :user_role_valid?

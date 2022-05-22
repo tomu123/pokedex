@@ -35,7 +35,8 @@ module Oauth2
       def create_user(ctx, user_data:, **)
         ctx[:user] = User::Operations::Create.call(user_data: { email: user_data[:email],
                                                                 given_name: user_data[:given_name],
-                                                                family_name: user_data[:family_name] })[:user]
+                                                                family_name: user_data[:family_name],
+                                                                user_image: user_data[:image] })[:user]
       end
 
       def save_third_party_user(_ctx, user:, third_party_user:, **)
