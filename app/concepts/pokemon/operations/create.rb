@@ -8,11 +8,12 @@ class Pokemon
       pass :create_pokemon
       pass :attach_image
       pass :find_pokemon
+      pass :send_notification
       pass :render_json
 
       def create_pokemon_form(ctx, **)
         ctx[:pokemon] = Pokemon.new
-        ctx[:pokemon_form] = Pokemon::Forms::Pokemon.new(ctx[:pokemon])
+        ctx[:pokemon_form] = Pokemon::Forms::PokemonForm.new(ctx[:pokemon])
       end
 
       def validate_form(_ctx, pokemon_form:, pokemon_data:, **)
@@ -34,6 +35,10 @@ class Pokemon
 
       def find_pokemon(ctx, pokemon:, **)
         ctx[:pokemon] = Pokemon.includes(:region, :types, :moves).find(pokemon.id)
+      end
+
+      def send_notification(_ctx, pokemon:, **)
+        PokemonMailer.with(pokemon_id: pokemon.id).new_pokemon_notification.deliver_later
       end
 
       def render_json(ctx, pokemon:, **)
