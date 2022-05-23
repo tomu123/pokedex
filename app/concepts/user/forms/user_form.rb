@@ -20,7 +20,7 @@ class User
 
       def unique_email?
         user = User.unscoped.find_by(email: email)
-        errors.add(:email, 'Email has already been taken') if user.present?
+        errors.add(:email, 'Email has already been taken') if user.present? && user != model
       end
     end
   end

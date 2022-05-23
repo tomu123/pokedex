@@ -30,4 +30,10 @@ class Api::V1::Admin::UsersController < Api::V1::Admin::ApplicationController
     User::Operations::Destroy.call(user_id: params[:id])
     head :no_content
   end
+
+  # PATCH /api/v1/admin/users/1/recover
+  def recover
+    result = User::Operations::Recover.call(user_id: params[:id])
+    render json: result[:json], status: :ok
+  end
 end
