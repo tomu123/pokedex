@@ -491,7 +491,8 @@ CREATE TABLE public.users (
     family_name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    user_role public.user_role DEFAULT 'trainer'::public.user_role
+    user_role public.user_role DEFAULT 'trainer'::public.user_role,
+    deleted_at date
 );
 
 
@@ -978,6 +979,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220513134731'),
 ('20220514090644'),
 ('20220514091505'),
-('20220517002251');
+('20220517002251'),
+('20220523032143');
 
 

@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      namespace :admin do
+        resources :users do
+          patch 'recover', on: :member
+        end
+      end
       namespace :trainer do
         resources :pokemons, only: [:index,:show] do
           post 'capture', on: :member
@@ -10,10 +15,6 @@ Rails.application.routes.draw do
         end
         resources :captured_pokemons,except: [:create]
       end
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       namespace :doctor do
         resources :pokemons
         resources :user, only: [] do

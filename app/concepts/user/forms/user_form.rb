@@ -19,7 +19,7 @@ class User
       end
 
       def unique_email?
-        user = User.find_by(email: email)
+        user = User.unscoped.find_by(email: email)
         errors.add(:email, 'Email has already been taken') if user.present?
       end
     end

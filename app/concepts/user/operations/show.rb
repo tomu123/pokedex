@@ -6,8 +6,8 @@ class User
       pass :find_user
       pass :render_json
 
-      def find_user(ctx, user:, **)
-        ctx[:user] = User.includes(captured_pokemons: { pokemon: %i[region types moves] }).find(user.id)
+      def find_user(ctx, user_id:, **)
+        ctx[:user] = User.unscoped.includes(captured_pokemons: { pokemon: %i[region types moves] }).find(user_id)
       end
 
       def render_json(ctx, user:, **)

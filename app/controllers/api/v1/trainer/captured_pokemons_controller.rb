@@ -8,14 +8,14 @@ class Api::V1::Trainer::CapturedPokemonsController < Api::V1::Trainer::Applicati
 
   # GET /api/v1/trainer/captured_pokemons/1
   def show
-    result = CapturedPokemon::Operations::Show.call(captured_pokemon_id: params[:id])
+    result = CapturedPokemon::Operations::Show.call(current_user: @current_user, captured_pokemon_id: params[:id])
     render json: result[:json], status: :ok
   end
 
   # PATCH/PUT /api/v1/trainer/captured_pokemons/1
   def update
     result = CapturedPokemon::Operations::Update.call(captured_pokemon_id: params[:id],
-                                                      captured_pokemon_data: params[:data])
+                                                      captured_pokemon_data: params.require(:data))
     render json: result[:json], status: :ok
   end
 

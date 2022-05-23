@@ -6,8 +6,12 @@ class CapturedPokemon
       pass :set_captured_pokemon
       pass :render_json
 
-      def set_captured_pokemon(ctx, captured_pokemon_id:, **)
-        ctx[:captured_pokemon] = CapturedPokemon.unscoped.find(captured_pokemon_id)
+      def set_captured_pokemon(ctx, current_user:, captured_pokemon_id:, **)
+        if current_user.doctor_role?
+          ctx[:captured_pokemon] = CapturedPokemon.unscoped.find(captured_pokemon_id)
+        elsif current_user.trainer_role?
+          ctx[:captured_pokemon] = CapturedPokemon.unscoped.where(user: current_user).find(captured_pokemon_id)
+        end
       end
 
       def render_json(ctx, captured_pokemon:, **)
