@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  # include ErrorHandler
+  include ErrorHandler
 
   # helper method to access the current user from the token
   def current_user

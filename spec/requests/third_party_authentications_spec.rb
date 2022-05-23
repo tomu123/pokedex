@@ -7,10 +7,10 @@ RSpec.describe "Third Party Authentication", type: :request do
   describe "POST /oauth/token" do
     before do
       create_stub(url: ENV.fetch('FACEBOOK_USER_DATA_ENDPOINT'),
-                  query: { fields: "id,first_name,last_name,email", access_token: "access_token_ok" },
+                  query: { fields: "id,first_name,last_name,email,picture", access_token: "access_token_ok" },
                   json_response: File.read(Rails.root.join("spec/webmock/facebook_success_response.json")), status: 200)
       create_stub(url: ENV.fetch('FACEBOOK_USER_DATA_ENDPOINT'),
-                  query: { fields: "id,first_name,last_name,email", access_token: "access_token_fail" },
+                  query: { fields: "id,first_name,last_name,email,picture", access_token: "access_token_fail" },
                   json_response: File.read(Rails.root.join("spec/webmock/facebook_failure_response.json")), status: 400)
       create_stub(url: ENV.fetch('GOOGLE_USER_DATA_ENDPOINT'),
                   query: { access_token: "access_token_ok" },
