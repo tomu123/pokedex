@@ -12,6 +12,7 @@ class CapturedPokemon
       property :special_defense
       property :speed
       property :created_at, as: :captured_at
+      property :deleted_at, as: :released_at
 
       property :pokemon, as: :species do
         property :height

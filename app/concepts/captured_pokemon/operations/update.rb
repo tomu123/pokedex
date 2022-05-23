@@ -1,53 +1,40 @@
 # frozen_string_literal: true
 
-class Pokemon
+class CapturedPokemon
   module Operations
     class Update < Trailblazer::Operation
-      pass :set_pokemon
-      pass :create_pokemon_form
+      pass :set_captured_pokemon
+      pass :create_captured_pokemon_form
       pass :validate_form
-      pass :update_pokemon
-      pass :attach_image
-      pass :find_pokemon
+      pass :update_captured_pokemon
+      pass :find_captured_pokemon
       pass :render_json
 
-      def set_pokemon(ctx, pokemon_id:, **)
-        ctx[:pokemon] = Pokemon.find(pokemon_id)
+      def set_captured_pokemon(ctx, captured_pokemon_id:, **)
+        ctx[:captured_pokemon] = CapturedPokemon.find(captured_pokemon_id)
       end
 
-      def create_pokemon_form(ctx, pokemon:, **)
-        ctx[:pokemon_form] = Pokemon::Forms::PokemonForm.new(pokemon)
+      def create_captured_pokemon_form(ctx, captured_pokemon:, **)
+        ctx[:captured_pokemon_form] = CapturedPokemon::Forms::CapturedPokemonForm.new(captured_pokemon)
       end
 
-      def validate_form(_ctx, pokemon_form:, pokemon_data:, **)
-        return if pokemon_form.validate(pokemon_data)
+      def validate_form(_ctx, captured_pokemon_form:, captured_pokemon_data:, **)
+        return if captured_pokemon_form.validate(captured_pokemon_data)
 
         raise CustomError.new(error: :argument_error, status: :unprocessable_entity,
-                              message: pokemon_form.errors.to_hash)
+                              message: captured_pokemon_form.errors.to_hash)
       end
 
-      def update_pokemon(_ctx, pokemon_form:, **)
-        pokemon_form.save
+      def update_captured_pokemon(_ctx, captured_pokemon_form:, **)
+        captured_pokemon_form.save
       end
 
-      def attach_image(_ctx, pokemon:, pokemon_image:, **)
-        return if pokemon_image.blank?
-
-        if pokemon.image.attached?
-          pokemon.image.variant(resize_to_limit: [220, 220]).image.purge if pokemon.image.variant(resize_to_limit: [
-                                                                                                    220, 220
-                                                                                                  ]).image&.attached?
-          pokemon.image.purge
-        end
-        pokemon.image.attach(io: pokemon_image.tempfile, filename: "pokemon_#{pokemon.id}.jpg")
+      def find_captured_pokemon(ctx, captured_pokemon:, **)
+        ctx[:captured_pokemon] = CapturedPokemon.includes(pokemon: %i[region types moves]).find(captured_pokemon.id)
       end
 
-      def find_pokemon(ctx, pokemon:, **)
-        ctx[:pokemon] = Pokemon.includes(:region, :types, :moves).find(pokemon.id)
-      end
-
-      def render_json(ctx, pokemon:, **)
-        ctx[:json] = Pokemon::Representers::Pokemon.jsonapi_new(pokemon).to_json
+      def render_json(ctx, captured_pokemon:, **)
+        ctx[:json] = CapturedPokemon::Representers::CapturedPokemon.jsonapi_new(captured_pokemon).to_json
       end
     end
   end

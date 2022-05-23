@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-class Pokemon
+class CapturedPokemon
   module Operations
     class Destroy < Trailblazer::Operation
-      pass :set_pokemon
-      pass :destroy_pokemon
+      pass :set_captured_pokemon
+      pass :destroy_captured_pokemon
 
-      def set_pokemon(ctx, pokemon_id:, **)
-        ctx[:pokemon] = Pokemon.find(pokemon_id)
+      def set_captured_pokemon(ctx, captured_pokemon_id:, **)
+        ctx[:captured_pokemon] = CapturedPokemon.find(captured_pokemon_id)
       end
 
-      def destroy_pokemon(_ctx, pokemon:, **)
-        pokemon.destroy
+      def destroy_captured_pokemon(_ctx, captured_pokemon:, **)
+        captured_pokemon.soft_destroy
       end
     end
   end

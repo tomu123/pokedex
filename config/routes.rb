@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         resource :user, only: [:show] do
           patch 'upload_image'
         end
+        resources :captured_pokemons,except: [:create]
       end
     end
   end
@@ -15,6 +16,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :doctor do
         resources :pokemons
+        resources :user, only: [] do
+          resources :captured_pokemons, shallow: true, only: [:index,:show] do
+            patch 'restore_health', on: :member
+          end
+        end
       end
     end
   end

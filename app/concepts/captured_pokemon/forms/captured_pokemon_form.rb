@@ -10,7 +10,7 @@ class CapturedPokemon
       property :special_attack
       property :special_defense
       property :speed
-      property :user
+      property :user, parse: false
 
       validates :name, :hp, :attack, :defense, :special_attack, :special_defense, :speed,
                 :user, presence: true
