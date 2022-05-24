@@ -14,6 +14,8 @@ Rails.application.routes.draw do
           patch 'upload_image'
         end
         resources :captured_pokemons,except: [:create]
+        resources :types, only: [:index,:show]
+        resources :regions, only: [:index,:show]
       end
       namespace :doctor do
         resources :pokemons
