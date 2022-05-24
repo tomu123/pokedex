@@ -26,10 +26,13 @@ module Oauth2
 
       def find_user(ctx, third_party_user:, user_data:, **)
         ctx[:user] = if user_data[:email].present?
-                       User.find_by(email: user_data[:email])
+                       User.unscoped.find_by(email: user_data[:email])
                      else
-                       User.find_by(third_party_user: third_party_user)
+                       User.unscoped.find_by(third_party_user: third_party_user)
                      end
+        return true if ctx[:user].deleted_at.blank?
+
+        raise CustomError.new(status: :forbidden, error: 'Disabled User', message: 'User has been disabled')
       end
 
       def create_user(ctx, user_data:, **)
