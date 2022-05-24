@@ -1,25 +1,10 @@
-# rubocop:disable Layout/LineLength,Metrics/BlockLength
 require 'rails_helper'
 
 RSpec.describe "Third Party Authentication", type: :request do
-  let(:client_app) { Doorkeeper::Application.create(name: "Android client", redirect_uri: "", scopes: "") }
+  include_context 'Application'
+  include_context 'Third Party Authentication'
 
   describe "POST /oauth/token" do
-    before do
-      create_stub(url: ENV.fetch('FACEBOOK_USER_DATA_ENDPOINT'),
-                  query: { fields: "id,first_name,last_name,email,picture", access_token: "access_token_ok" },
-                  json_response: File.read(Rails.root.join("spec/webmock/facebook_success_response.json")), status: 200)
-      create_stub(url: ENV.fetch('FACEBOOK_USER_DATA_ENDPOINT'),
-                  query: { fields: "id,first_name,last_name,email,picture", access_token: "access_token_fail" },
-                  json_response: File.read(Rails.root.join("spec/webmock/facebook_failure_response.json")), status: 400)
-      create_stub(url: ENV.fetch('GOOGLE_USER_DATA_ENDPOINT'),
-                  query: { access_token: "access_token_ok" },
-                  json_response: File.read(Rails.root.join("spec/webmock/google_success_response.json")), status: 200)
-      create_stub(url: ENV.fetch('GOOGLE_USER_DATA_ENDPOINT'),
-                  query: { access_token: "access_token_fail" },
-                  json_response: File.read(Rails.root.join("spec/webmock/google_failure_response.json")), status: 403)
-    end
-
     it "register a user when this is the first time they login with a third party app, create a token for the user and return it" do
       ['facebook', 'google'].each do |provider|
         expect do

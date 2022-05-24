@@ -36,6 +36,9 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Layout/LineLength:
   Max: 120
+  Exclude:
+    - test/**/*
+    - spec/**/*
 Style/EmptyMethod:
   Enabled: false
 Bundler/OrderedGems:
@@ -44,3 +47,7 @@ Lint/UnreachableCode:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - test/**/*
+    - spec/**/*
